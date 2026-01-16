@@ -5,15 +5,17 @@ new Phaser.Game({
   type: Phaser.AUTO,
   parent: "game",
   backgroundColor: "#111111",
+
   scale: {
-    mode: Phaser.Scale.RESIZE,
+    mode: Phaser.Scale.FIT, // ✅ IMPORTANT (no clipping)
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 480,
+    height: 800,
   },
 
-  // ✅ Enable DOM Elements (needed for name input)
-  dom: { createContainer: true },
+  dom: {
+    createContainer: true,
+  },
 
   scene: [MenuScene, MainScene],
 });

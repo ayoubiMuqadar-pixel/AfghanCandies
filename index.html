@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
     <title>Afghan Candies</title>
 
     <style>
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -14,10 +18,18 @@
         overflow: hidden;
         background: #000;
       }
+
+      /* ✅ iPhone safe-area support */
+      body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+
       #game {
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
       }
+
       canvas {
         display: block;
         touch-action: none;
@@ -28,10 +40,10 @@
   <body>
     <div id="game"></div>
 
-    <!-- Phaser (load ONCE) -->
+    <!-- Phaser -->
     <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
 
-    <!-- Your game (ES module) -->
+    <!-- Game -->
     <script type="module" src="./src/game.js"></script>
   </body>
 </html>

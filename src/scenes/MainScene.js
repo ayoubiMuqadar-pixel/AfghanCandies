@@ -175,18 +175,19 @@ export class MainScene extends Phaser.Scene {
     }
 
     // HUD
-    const hud = drawRoundedPanel(this, 170, 80, 320, 150, 18, UI.panel, UI.stroke, 0.95);
+    const hud = drawRoundedPanel(this, 170, 110, 320, 150, 18, UI.panel, UI.stroke, 0.95);
+
     hud.setDepth(100);
 
     this.add
-      .text(30, 18, "AFGHAN CANDIES", { fontSize: "20px", color: "#fff", fontStyle: "bold" })
+      .text(30, 18 + 30, "AFGHAN CANDIES", { fontSize: "20px", color: "#fff", fontStyle: "bold" })
       .setDepth(110);
 
-    this.scoreText = this.add.text(30, 48, "Score: 0", { fontSize: "16px", color: "#fff" }).setDepth(110);
-    this.movesText = this.add.text(30, 70, "Moves: 15", { fontSize: "16px", color: "#fff" }).setDepth(110);
+    this.scoreText = this.add.text(30, 48 + 30, "Score: 0", { fontSize: "16px", color: "#fff" }).setDepth(110);
+    this.movesText = this.add.text(30, 70 + 30, "Moves: 15", { fontSize: "16px", color: "#fff" }).setDepth(110);
 
-    this.levelText = this.add.text(30, 92, "", { fontSize: "16px", color: "#fff" }).setDepth(110);
-    this.goalText = this.add.text(30, 114, "", { fontSize: "14px", color: "#b9bcc7" }).setDepth(110);
+    this.levelText = this.add.text(30, 92 + 30, "", { fontSize: "16px", color: "#fff" }).setDepth(110);
+    this.goalText = this.add.text(30, 114 + 30, "", { fontSize: "14px", color: "#b9bcc7" }).setDepth(110);
 
     this.comboText = this.add
       .text(250, 70, "", { fontSize: "16px", color: "#ffd166", fontStyle: "bold" })
