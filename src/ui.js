@@ -62,6 +62,7 @@ export function drawRoundedPanel(scene, x, y, w, h, radius = 18, fill = UI.panel
   return g;
 }
 
+/* ✅ MOBILE-SAFE BUTTON */
 export function makeFancyButton(scene, x, y, label, onClick, w = 240, h = 58) {
   const container = scene.add.container(x, y);
 
@@ -79,34 +80,30 @@ export function makeFancyButton(scene, x, y, label, onClick, w = 240, h = 58) {
     fontStyle: "bold",
   }).setOrigin(0.5);
 
-  container.add([shadow, bg, stroke, glow, txt]);
-  container.setSize(w, h);
+  // ✅ REAL clickable area for mobile
+  const hit = scene.add.zone(0, 0, w, h).setOrigin(0.5);
+  hit.setInteractive({ useHandCursor: true });
 
-  container.setInteractive(new Phaser.Geom.Rectangle(-w / 2, -h / 2, w, h), Phaser.Geom.Rectangle.Contains);
-  container.input.cursor = "pointer";
+  container.add([shadow, bg, stroke, glow, txt, hit]);
+  container.setSize(w, h);
 
   const setGlow = (a) => glow.setStrokeStyle(2, UI.glow, a);
 
-  container.on("pointerover", () => {
-    scene.tweens.killTweensOf(container);
+  hit.on("pointerover", () => {
     bg.setFillStyle(0x252a35, 1);
     setGlow(0.55);
-    scene.tweens.add({ targets: container, scaleX: 1.02, scaleY: 1.02, duration: 120, ease: "Sine.easeOut" });
   });
 
-  container.on("pointerout", () => {
-    scene.tweens.killTweensOf(container);
+  hit.on("pointerout", () => {
     bg.setFillStyle(0x20232c, 1);
-    setGlow(0.0);
-    scene.tweens.add({ targets: container, scaleX: 1.0, scaleY: 1.0, duration: 120, ease: "Sine.easeOut" });
+    setGlow(0);
   });
 
-  container.on("pointerdown", () => {
-    scene.tweens.killTweensOf(container);
+  hit.on("pointerdown", () => {
     scene.tweens.add({
       targets: container,
-      scaleX: 0.98,
-      scaleY: 0.98,
+      scaleX: 0.96,
+      scaleY: 0.96,
       yoyo: true,
       duration: 90,
       ease: "Sine.easeInOut",
@@ -140,20 +137,12 @@ export function showConfirm(scene, message, onYes) {
     .setOrigin(0.5)
     .setDepth(5002);
 
-  const yes = makeFancyButton(
-    scene,
-    width / 2 - 95,
-    height / 2 + 55,
-    "YES",
-    () => {
-      cleanup();
-      onYes?.();
-    },
-    150,
-    52
-  ).setDepth(5003);
+  const yes = makeFancyButton(scene, width / 2 - 95, height / 2 + 55, "YES", () => {
+    cleanup();
+    onYes?.();
+  }, 150, 52).setDepth(5003);
 
-  const no = makeFancyButton(scene, width / 2 + 95, height / 2 + 55, "NO", () => cleanup(), 150, 52).setDepth(5003);
+  const no = makeFancyButton(scene, width / 2 + 95, height / 2 + 55, "NO", cleanup, 150, 52).setDepth(5003);
 
   function cleanup() {
     overlay.destroy();
