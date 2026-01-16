@@ -197,7 +197,7 @@ export class MainScene extends Phaser.Scene {
     // Menu button
     const menuBtn = makeFancyButton(
       this,
-      380,
+      320,
       75,
       "MENU",
       () => {
@@ -306,7 +306,8 @@ export class MainScene extends Phaser.Scene {
     const height = gameSize.height;
 
     this.boardX = Math.floor((width - this.boardW) / 2);
-    this.boardY = Math.floor((height - this.boardH) / 2) + 40;
+    this.boardY = Math.floor((height - this.boardH) / 2) + 90;
+
 
     if (this.boardPanelG) this.boardPanelG.destroy();
     this.boardPanelG = drawRoundedPanel(
@@ -321,6 +322,8 @@ export class MainScene extends Phaser.Scene {
       0.96
     );
     this.boardPanelG.setDepth(-5);
+    this.boardPanelG.disableInteractive?.();
+
 
     if (this.grid?.length) {
       for (let r = 0; r < GRID_SIZE; r++) {
